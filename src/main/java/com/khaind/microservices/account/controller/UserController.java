@@ -40,6 +40,16 @@ public class UserController {
         return userMapper.toDTOs(userRepository.findAll());
     }
 
+    @GetMapping("/gender/{gender}")
+    public List<UserDTO> findByGender(@PathVariable String gender) {
+        return userMapper.toDTOs(userRepository.findByGender(gender));
+    }
+
+    @GetMapping("/name/{name}")
+    public List<UserDTO> findByName(@PathVariable String name) {
+        return userMapper.toDTOs(userRepository.findByNameLike("%" + name + "%"));
+    }
+
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id) {
         try {

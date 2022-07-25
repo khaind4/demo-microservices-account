@@ -5,6 +5,7 @@ import com.khaind.microservices.account.entity.UserEntity;
 import com.khaind.microservices.account.mapper.UserMapper;
 import com.khaind.microservices.account.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Value("${name}")
+    private String applicationName;
 
     @PostMapping
     public UserDTO upsert(@RequestBody UserDTO dto) {
@@ -59,5 +63,10 @@ public class UserController {
             System.out.printf("Delete user error: " + e);
         }
         return "fail";
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return applicationName;
     }
 }
